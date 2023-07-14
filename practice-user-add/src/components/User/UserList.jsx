@@ -1,9 +1,10 @@
 import UserItem from "./UserItem";
 import styles from "./UserList.module.css";
+import Card from "../UI/Card";
 
 export default function UserList(props) {
   return (
-    <div className={styles.users}>
+    <Card className={styles.users}>
       <ul>
         {props.items.map((item) => (
           <li>
@@ -11,6 +12,6 @@ export default function UserList(props) {
           </li>
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }
