@@ -1,0 +1,26 @@
+[
+  {
+    "id": "c1",
+    "name": "Sushi",
+    "amount": 9,
+    "price": 22.99
+  },
+  {
+    "id": "c2",
+    "name": "Schnitzel",
+    "amount": 98,
+    "price": 16.5
+  },
+  {
+    "id": "c3",
+    "name": "Barbecue Burger",
+    "amount": 22,
+    "price": 12.99
+  },
+  {
+    "id": "c4",
+    "name": "Green Bowl",
+    "amount": 18,
+    "price": 18.99
+  }
+]
