@@ -5,7 +5,7 @@ import MealItem from "./MealItem/MealItem";
 
 export default function AvailableMeals(props) {
   const mealsList = DUMMY.map((item) => {
-    return <MealItem key={item.id} name={item.name} description={item.description} price={item.price} />;
+    return <MealItem key={item.id} id={item.id} name={item.name} description={item.description} price={item.price} />;
   });
 
   return (
