@@ -5,29 +5,37 @@ import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
 
 export default function Cart(props) {
-  const removeHandler = (id) => {};
-  const addHandler = (item) => {};
-
   const cartContext = useContext(CartContext);
 
   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
   const hasItems = cartContext.items.length > 0;
-  const cartItems = cartContext.items.map((item) => {
-    return (
-      <CartItem
-        key={item.id}
-        name={item.name}
-        price={item.price}
-        amount={item.amount}
-        onRemove={removeHandler.bind(null, item.id)}
-        onAdd={addHandler.bind(null, item)}
-      />
-    );
-  });
+
+  const removeHandler = (id) => {
+    cartContext.removeItem(id);
+  };
+
+  const addHandler = (item) => {
+    cartContext.addItem({ ...item, amount: 1 });
+  };
+
+  const cartItems = (
+    <ul className={classes["cart-items"]}>
+      {cartContext.items.map((item) => (
+        <CartItem
+          key={item.id}
+          name={item.name}
+          price={item.price}
+          amount={item.amount}
+          onRemove={removeHandler.bind(null, item.id)}
+          onAdd={addHandler.bind(null, item)}
+        />
+      ))}
+    </ul>
+  );
 
   return (
-    <Modal>
-      <ul className={classes["cart-items"]}>{cartItems}</ul>
+    <Modal onClose={props.onClose}>
+      {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>

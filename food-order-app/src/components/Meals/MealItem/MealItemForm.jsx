@@ -15,7 +15,7 @@ export default function MealItemForm(props) {
       return;
     }
 
-    props.onAdd(amount);
+    props.onAdd(+amount);
   };
 
   return (
@@ -23,6 +23,7 @@ export default function MealItemForm(props) {
       <Input
         ref={inputRef}
         label="Amount"
+        type="number"
         input={{ id: props.id, type: "number", min: 1, max: 10, step: 1, defaultValue: 1 }}
       />
       <button type="submit">+추가</button>

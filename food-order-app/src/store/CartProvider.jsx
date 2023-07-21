@@ -2,23 +2,40 @@ import { useReducer } from "react";
 import CartContext from "./cart-context";
 
 const sumCalculator = (items) => {
-  return items.reduce((prevCount, item) => {
-    prevCount += item.amount;
-  }, 0);
+  return items.reduce((prevPrice, item) => (prevPrice += item.price * item.amount), 0);
 };
 
 const cartReducer = (state, action) => {
-  const { items, totalAmount } = state;
+  const { items } = state;
   const { type, item, id } = action;
+  let updatedItems = [...items];
 
   switch (type) {
     case "add_item":
-      // const newItems = state.items.concat(action.item)
-      // const newTotalAmount = state.totalAmount + action.item.price * action.item.amount;
-      return { items: [item, ...items], totalAmount: totalAmount + item.price * item.amount };
+      const existItemIndex = items.findIndex((_item) => _item.id === item.id);
+      const oldItem = items[existItemIndex];
+      if (oldItem) {
+        updatedItems[existItemIndex] = { ...oldItem, amount: oldItem.amount + item.amount };
+      } else {
+        updatedItems = [...items, item];
+      }
+
+      return { items: updatedItems, totalAmount: sumCalculator(updatedItems) };
+
     case "remove_item":
-      const newItems = items.filter((item) => item.id !== id);
-      return { items: newItems, totalAmount: sumCalculator(newItems) };
+      const targetItemIndex = items.findIndex((item) => item.id === id);
+      const targetItem = updatedItems[targetItemIndex];
+      const { amount } = targetItem;
+
+      if (amount === 1) {
+        // 아이템 삭제
+        updatedItems = items.filter((item) => item.id !== id);
+      } else {
+        // 수량 감소
+        updatedItems[targetItemIndex] = { ...targetItem, amount: targetItem.amount - 1 };
+      }
+
+      return { items: updatedItems, totalAmount: sumCalculator(updatedItems) };
     default:
       return Error("Unknown action.");
   }

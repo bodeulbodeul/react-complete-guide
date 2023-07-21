@@ -8,8 +8,9 @@ export default function HeaderCartButton(props) {
 
   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
 
+  const btnClasses = `${classes.button} ${classes.bump}`;
   return (
-    <button className={classes.button} onClick={props.onOpen}>
+    <button className={btnClasses} onClick={props.onOpen}>
       <span className={classes.icon}>
         <CartIcon />
       </span>
